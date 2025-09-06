@@ -29,7 +29,6 @@ public interface InstrumentDaoInterface {
     //find single entity by key
     public String getInstrumentByIdAsJson(int instrumentId);
 
-    //
 
 
 }

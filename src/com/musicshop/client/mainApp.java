@@ -19,7 +19,5 @@ public class mainApp {
         else{
             System.out.println("All instruments are on the list");
         }
-
-
     }
 }
