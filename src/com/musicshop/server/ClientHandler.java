@@ -29,7 +29,7 @@ public class ClientHandler implements Runnable {
             System.out.println("clienthandler received request: " + request);
 
             if(request != null && request.equals("GetAllInstruments")){
-
+                //json code
             }
 
 

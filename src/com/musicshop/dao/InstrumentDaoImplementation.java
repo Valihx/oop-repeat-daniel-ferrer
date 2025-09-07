@@ -12,29 +12,47 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
     @Override
     public List<Instrument> getAllInstruments() throws DaoException {
         List<Instrument> instruments = new ArrayList<Instrument>();
-        Connection conn = null;
-        PreparedStatement psm = null;
-        ResultSet rs = null;
-        try {
-            //make db connection
-            conn = DBConnectionManager.getConnection();
-
-            String query = "SELECT * FROM instrument";
-            psm = conn.prepareStatement(query);
-            rs = psm.executeQuery();
-
-
-
+        //make db connection
+        try(Connection conn = DBConnectionManager.getConnection();
+            PreparedStatement psm = conn.prepareStatement("SELECT * FROM Instrument");
+            ResultSet rs = psm.executeQuery();){
+            //get stuff
+            while(rs.next()){
+                int  id = rs.getInt("id");
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                double price = rs.getDouble("price");
+                //add to the arraylist
+                instruments.add(new Instrument(id,name,type,price));
+            }
         } catch (SQLException e) {
-            throw new DaoException("getAllInstruments() failed: " + e.getMessage());
+            throw new DaoException("getAllInstruments failed: " + e.getMessage());
         }
-
             return instruments;
     }
 
     @Override
-    public Instrument getInstrumentById(int instrumentId) {
-        return null;
+    public Instrument getInstrumentById(int instrumentId) throws DaoException {
+        Instrument instrument = null;
+        try(Connection conn = DBConnectionManager.getConnection();
+            PreparedStatement psm = conn.prepareStatement("SELECT * FROM instruments WHERE instrument_id = ?");)
+        {
+            psm.setInt(1, instrumentId);
+            ResultSet rs = psm.executeQuery();
+            if(rs.next()){
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String type = rs.getString("type");
+                double price = rs.getDouble("price");
+
+                instrument = new Instrument(id,name,type,price);
+            }
+
+
+        } catch (SQLException e){
+            throw new DaoException("getInstrumentById failed: " + e.getMessage());
+        }
+        return instrument;
     }
 
     @Override
