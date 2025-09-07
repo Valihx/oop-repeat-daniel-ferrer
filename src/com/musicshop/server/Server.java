@@ -12,10 +12,11 @@ public class Server {
 
     public void start() {
         try {
+            //making a socket for all connections to be listened
             ServerSocket sSocket = new ServerSocket(8888);
             System.out.println("waiting for connection");
 
-            //loop listening for a connection
+            //loop listening for connections forever
             while (true) {
 
                 Socket clientSocket = sSocket.accept();

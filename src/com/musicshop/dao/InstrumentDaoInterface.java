@@ -24,9 +24,9 @@ public interface InstrumentDaoInterface {
 
     //create cache using hashset gets added later onnn
 
-    //retrieve all entities as a JSON string
+    //retrieve all entities as a json string
     public String getAllInstrumentsAsJson() throws DaoException;
 
-    //find single entity by key as a JSON string
+    //find single entity by key as a json string
     public String getInstrumentByIdAsJson(int instrumentId) throws DaoException;
 }
