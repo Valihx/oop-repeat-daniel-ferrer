@@ -1,5 +1,6 @@
 package com.musicshop.dao;
 
+import com.musicshop.exception.DaoException;
 import com.musicshop.dto.Instrument;
 import java.util.List;
 
@@ -28,7 +29,6 @@ public interface InstrumentDaoInterface {
 
     //find single entity by key
     public String getInstrumentByIdAsJson(int instrumentId);
-
 
 
 }
