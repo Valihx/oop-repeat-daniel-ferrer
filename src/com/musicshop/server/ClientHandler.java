@@ -28,6 +28,10 @@ public class ClientHandler implements Runnable {
             String request =  in.readLine();
             System.out.println("clienthandler received request: " + request);
 
+            if(request != null && request.equals("GetAllInstruments")){
+
+            }
+
 
         } catch (IOException e) {
             System.out.println("Error in Client Handler: " + e.getMessage());

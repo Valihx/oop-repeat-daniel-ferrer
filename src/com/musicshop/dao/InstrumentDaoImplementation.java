@@ -1,12 +1,35 @@
 package com.musicshop.dao;
+
  import com.musicshop.dto.Instrument;
+ import com.musicshop.exception.DaoException;
+ import com.musicshop.util.DBConnectionManager;
+ import java.sql.*;
+ import java.util.ArrayList;
  import java.util.List;
 
 public class InstrumentDaoImplementation implements InstrumentDaoInterface {
 
     @Override
-    public List<Instrument> getAllInstruments() {
-        return null;
+    public List<Instrument> getAllInstruments() throws DaoException {
+        List<Instrument> instruments = new ArrayList<Instrument>();
+        Connection conn = null;
+        PreparedStatement psm = null;
+        ResultSet rs = null;
+        try {
+            //make db connection
+            conn = DBConnectionManager.getConnection();
+
+            String query = "SELECT * FROM instrument";
+            psm = conn.prepareStatement(query);
+            rs = psm.executeQuery();
+
+
+
+        } catch (SQLException e) {
+            throw new DaoException("getAllInstruments() failed: " + e.getMessage());
+        }
+
+            return instruments;
     }
 
     @Override
