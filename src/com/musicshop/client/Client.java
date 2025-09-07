@@ -1,6 +1,6 @@
 package com.musicshop.client;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 
 public class Client {

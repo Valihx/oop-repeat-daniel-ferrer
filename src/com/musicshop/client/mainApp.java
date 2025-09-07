@@ -1,6 +1,5 @@
 package com.musicshop.client;
 
-import java.util.Scanner;
 import com.musicshop.exception.DaoException;
 import com.musicshop.dao.InstrumentDaoImplementation;
 import com.musicshop.dao.InstrumentDaoInterface;

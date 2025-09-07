@@ -7,7 +7,7 @@ import java.util.List;
 public interface InstrumentDaoInterface {
     //features
 
-    //find entities
+    //find all entities
     public List<Instrument> getAllInstruments() throws DaoException;
 
     //find and display entity by key
@@ -19,7 +19,7 @@ public interface InstrumentDaoInterface {
     //insert
     public Instrument insertInstrument(Instrument instrument) throws DaoException;
 
-    //list by filter
+    //list with filter
     public List<Instrument> getInstrumentsByType(String instrumentType) throws DaoException;
 
     //create cache using hashset gets added later onnn

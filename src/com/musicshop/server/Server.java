@@ -1,6 +1,6 @@
 package com.musicshop.server;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -15,15 +15,17 @@ public class Server {
             //making a socket for all connections to be listened
             ServerSocket sSocket = new ServerSocket(8888);
             System.out.println("waiting for connection");
+            int clientCount = 0;
 
             //loop listening for connections forever
             while (true) {
 
                 Socket clientSocket = sSocket.accept();
-                System.out.println("new client connected");
+                clientCount++;
+                System.out.println("new client connected:"+clientCount);
 
                 //handle the client in a new thread to not clash with others
-                ClientHandler cHandler = new ClientHandler(clientSocket);
+                ClientHandler cHandler = new ClientHandler(clientSocket, clientCount);
                 new Thread(cHandler).start();
             }
         } catch (IOException e) {
