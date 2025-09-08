@@ -13,11 +13,11 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
     public List<Instrument> getAllInstruments() throws DaoException {
         List<Instrument> instruments = new ArrayList<Instrument>();
         //make db connection
-        try (Connection conn = DBConnectionManager.getConnection();
+        try(Connection conn = DBConnectionManager.getConnection();
              PreparedStatement psm = conn.prepareStatement("SELECT * FROM instruments");
              ResultSet rs = psm.executeQuery();) {
             //get stuff
-            while (rs.next()) {
+            while(rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String type = rs.getString("type");
@@ -26,14 +26,14 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
                 //add to the arraylist
                 instruments.add(new Instrument(id, name, type, price, stock));
             }
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             throw new DaoException("getAllInstruments failed: " + e.getMessage());
         }
         return instruments;
     }
 
     @Override
-    public Instrument getInstrumentById(int instrumentId) throws DaoException {
+    public Instrument getInstrumentById(int instrumentId) throws DaoException{
         Instrument instrument = null;
         try (Connection conn = DBConnectionManager.getConnection();
              PreparedStatement psm = conn.prepareStatement("SELECT * FROM instruments WHERE id = ?");) {
@@ -41,7 +41,7 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
             ResultSet rs = psm.executeQuery();
 
             //check if an instrument was found
-            if (rs.next()) {
+            if (rs.next()){
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 String type = rs.getString("type");
@@ -51,7 +51,7 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
                 instrument = new Instrument(id, name, type, price, stock);
             }
 
-        } catch (SQLException e) {
+        } catch (SQLException e){
             throw new DaoException("getInstrumentById failed: " + e.getMessage());
         }
         return instrument;
@@ -68,7 +68,7 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
 
             System.out.println("Instrument" + instrumentId + " has been deleted");
 
-        } catch (SQLException e) {
+        } catch (SQLException e){
             throw new DaoException("deleteInstrumentById failed: " + e.getMessage());
         }
     }
@@ -87,11 +87,11 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
 
             // get the new id the database made
             ResultSet generatedKeys = psm.getGeneratedKeys();
-            if (generatedKeys.next()) {
+            if(generatedKeys.next()) {
                 instrument.setInstrumentId(generatedKeys.getInt(1));
             }
 
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             throw new DaoException("insertInstrument failed: " + e.getMessage());
         }
         return instrument;
@@ -104,7 +104,9 @@ public class InstrumentDaoImplementation implements InstrumentDaoInterface {
 
     @Override
     public String getAllInstrumentsAsJson() throws DaoException {
-        return "";
+        System.out.println("DAO: This method should call getAllInstruments(), loop through the list, and convert it to a JSON string.");
+        //json array to prove connection works
+        return "[]";
     }
 
     @Override
