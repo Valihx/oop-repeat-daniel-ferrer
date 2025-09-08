@@ -1,5 +1,9 @@
 package com.musicshop.server;
 
+import com.musicshop.dao.InstrumentDaoImplementation;
+import com.musicshop.dao.InstrumentDaoInterface;
+import com.musicshop.exception.DaoException;
+
 import java.net.Socket;
 import java.io.*;
 
@@ -28,13 +32,15 @@ public class ClientHandler implements Runnable {
             String request =  in.readLine();
             System.out.println("clienthandler received request: " + request);
 
-            if(request != null && request.equals("GetAllInstruments")){
-                //json code
+            if (request != null && request.equals("GetAllInstruments")) {
+                InstrumentDaoInterface dao = new InstrumentDaoImplementation();
+                out.println(dao.getAllInstrumentsAsJson());
             }
 
+            clientSocket.close();
 
-        } catch (IOException e) {
-            System.out.println("Error in Client Handler: " + e.getMessage());
+        } catch (IOException | DaoException e) { // This handles both network and database errors
+            System.out.println("ClientHandlere rror: " + e.getMessage());
         }
     }
 }
